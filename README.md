@@ -2,8 +2,8 @@
 
 # Run
 
-Download: Code -> Download ZIP /n
-Compile:  g++ main.cpp -o main
+- Download: Code -> Download ZIP /n
+- Compile:  g++ main.cpp -o main
 
 
 # Info
