@@ -1,6 +1,6 @@
 ## An interesting game
 
-Download:
+Download: Code -> Download ZIP
 Compile:  g++ main.cpp -o main
 Info:
  - Made entirely in C++
