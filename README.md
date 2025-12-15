@@ -1,7 +1,8 @@
 ## An interesting game
 
 # Run
-Download: Code -> Download ZIP
+
+Download: Code -> Download ZIP /n
 Compile:  g++ main.cpp -o main
 
 
