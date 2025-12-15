@@ -1,8 +1,8 @@
 ## An interesting game
 
 # Run
-1 Download: Code -> Download ZIP
-2 Compile:  g++ main.cpp -o main
+- 1 Download: Code -> Download ZIP
+- 2 Compile:  g++ main.cpp -o main
 
 
 # Info
