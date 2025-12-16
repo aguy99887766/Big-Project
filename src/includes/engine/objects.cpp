@@ -331,6 +331,7 @@ public:
         Chara saveData = readCharacterFile("save.txt");
 
         saveGame("save.txt",
+             name,
              std::to_string(level),
              std::to_string(money),
              std::to_string(health)

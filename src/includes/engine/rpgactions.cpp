@@ -47,16 +47,25 @@ T dialog(Person* person, const std::string message, const std::vector<std::strin
 
 
 Player* loadPlayer() {
-    Chara saveData = readCharacterFile("save.txt");
-    Player* user = new Player(saveData.name, std::stof(saveData.health), 100.0f, std::stof(saveData.money));
-    user->loadInventory();
+
+    Player* user = new Player("Generic");
+    try {
+        Chara saveData = readCharacterFile("save.txt");
+        Player* user = new Player(saveData.name, std::stof(saveData.health), 100.0f, std::stof(saveData.money));
+        user->loadInventory();
+        return user;
+    } catch (const std::invalid_argument& e) {
+        warning("No data detected");
+    }
     return user;
+
 }
 
 void newScene(Player* player) {
     Chara saveData = readCharacterFile("save.txt");
 
     saveGame("save.txt",
+            player->getName(),
              std::to_string(player->getLevel()),
              std::to_string(player->getMoney()),
             std::to_string(player->getHP()));

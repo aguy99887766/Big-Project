@@ -19,29 +19,6 @@ struct Settings
     bool autoContinueMonologues = false;
 };
 
-void firstBoot() {
-
-    information("Checking save data");
-    if (bootCheck("inventory.txt", "save.txt")) {
-        information("Files in directory");
-        return;
-    }
-    warning("First time boot: creating files");
-    std::string files[2] = {"save.txt", "inventory.txt"};
-
-    for (int i=0; i<2; i++) {
-        std::ofstream file;
-        file.open(files[i]);
-
-        if (!file.is_open()) {
-            warning("Could not create file");
-        }
-
-        file.close();
-    
-    }
-
-}
 
 /*
 
@@ -278,8 +255,14 @@ public:
 void startGame() {
 
     Game* game = new Game();
+    int scene;
     while (true) {
-        int scene = std::stoi(readCharacterFile("save.txt").scene);
+        try {
+            scene = std::stoi(readCharacterFile("save.txt").scene);
+        } catch (const std::invalid_argument& e) {
+            warning("Scene not found in save.txt, please start a new game");
+            return;
+        }
         output("Loading scene " + std::to_string(scene));
         if (scene <= 3) {
 

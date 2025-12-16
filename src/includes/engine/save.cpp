@@ -75,6 +75,12 @@ Chara readCharacterFile(const std::string& filename) {
     return character;  
 }
 
+void updateCharacterName(const std::string& filename, const std::string& newName) {
+    Chara character = readCharacterFile(filename);
+    character.name = newName;
+    writeCharacter(filename, character);
+} 
+
 void updateCharacterLevel(const std::string& filename, const std::string& level) {
     Chara character = readCharacterFile(filename); 
     character.level = level; 
@@ -100,10 +106,13 @@ void updateCharacterHealth(const std::string& filename, const std::string& newHe
 }
 
 
-void saveGame(const std::string& filename, const std::string& level, const std::string& money, const std::string& health) {
-
+void saveGame(const std::string& filename, const std::string& name, const std::string& level, const std::string& money, const std::string& health) {
+    updateCharacterName(filename, name);
     updateCharacterLevel(filename, level);
     updateCharacterMoney(filename, money);
     updateCharacterHealth(filename, health);
 
 }
+
+
+
