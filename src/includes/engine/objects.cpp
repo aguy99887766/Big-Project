@@ -100,6 +100,9 @@ public:
         inventory_items.erase(inventory_items.begin() + index);
     }
 
+    bool isAlive() {
+        return health>0;
+    }
 
     Base_item* getHand(int index) {
         if (index < 0 || index >= 15) return nullptr;

@@ -79,7 +79,7 @@ void Store(Merchant* merchant, Person* buyer) {
 
 void GameOver() {
     error("That was disapointing...");
-    throw EntityException("Health cannot be less than or equal to 0. Game Over.");
+    output("Game over");
 }
 
 void fight(Player* player, Person* monster) {
@@ -133,16 +133,20 @@ void fight(Player* player, Person* monster) {
 
     monster->attack(player);
 
-    if (player->getHP() <= 0) {
+    if (!player->isAlive()) {
         delete player;
-        GameOver();
+        throw EntityException("Game Over");
+        //GameOver();
+        
     }
 
     } while (monster->getHP() > 0);
 
     monster->addHP(baseHP);
 
+
     output("You win!");
     player->addMoney(15);
+
 
 }

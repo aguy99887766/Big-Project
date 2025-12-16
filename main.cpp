@@ -137,6 +137,11 @@ void DungeonLayerT1(float min_health, float max_health, float attackMin, float a
     while (true) {
 
           
+        if (!player->isAlive()) {
+            output("Player's health is less than 0");
+            player->addHP(5);
+
+        }
         
         std::vector<std::string> directions = {"north", "south", "east", "west"};
         userSelect = gameMenu();
@@ -155,9 +160,13 @@ void DungeonLayerT1(float min_health, float max_health, float attackMin, float a
                 if (Chance(1, 4)) {
 
                     int selected_Monster = RandomNumber(0, 1);
-
-                    fight(player, currentPlace->entitesHere[selected_Monster].get());
-
+                    try {
+                        fight(player, currentPlace->entitesHere[selected_Monster].get());
+                    } catch (const EntityException& e) {
+                        error(e.what());
+                        output("Player has died, leaving safely");
+                        return;
+                    }
                     player->Save();
                 }
  
@@ -269,18 +278,19 @@ public:
 void startGame() {
 
     Game* game = new Game();
+    while (true) {
+        int scene = std::stoi(readCharacterFile("save.txt").scene);
+        output("Loading scene " + std::to_string(scene));
+        if (scene <= 3) {
 
-    int scene = std::stoi(readCharacterFile("save.txt").scene);
-    output("Loading scene " + std::to_string(scene));
-    if (scene <= 3) {
+            game->Tutorial(scene);
 
-        game->Tutorial(scene);
-
-    } else {
-        int layer = scene-3;
-        game->DungeonCrawler(layer);
+        } else {
+            int layer = scene-3;
+            game->DungeonCrawler(layer);
+            break;
+        }
     }
-
     delete game;
 }
 
@@ -309,7 +319,6 @@ int main() {
 
             case 1:
                 if (confirm()) {
-                    Beta();
                     newGame();
                 }
                 break;
